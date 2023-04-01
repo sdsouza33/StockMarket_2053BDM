@@ -1,0 +1,4 @@
+
+1. Basic stats analysis like summary
+2. Adding more features -  EMA, SMA, Fourier, ARIMA, bollinger bands - 2PM
+We can use google, APPL, microsft and the index as a feature too
