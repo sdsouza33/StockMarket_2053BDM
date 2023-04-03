@@ -2,3 +2,26 @@
 1. Basic stats analysis like summary
 2. Adding more features -  EMA, SMA, Fourier, ARIMA, bollinger bands - 2PM
 We can use google, APPL, microsft and the index as a feature too
+
+
+
+Glossary and notes
+-------------------
+
+Why to choose different scalers for Independent and dependent variables ?
+-> We first compute scaling for X based on its min and max values. If we use the same instance of the first scaler to scale y as well, then it would base its min max calculation on the values of X which would then lead it to perform incorrect calculations for y scaling. 
+
+Why did we reshape train_X and test_X ?
+train_X = train_X.reshape((train_X.shape[0], 1, train_X.shape[1]))
+-> We reshaped this to fit the LSTM arch framework guidlines. In order to make this LSTM input compatible we had to reshape this since LSTM needs inputs to be (batch_size, time_steps, features)
+in order to receive it as an input.
+Our train_X had (num_samples,num_features) or (row,column) as an input. We need to add an extra dimension for the timesteps which says how many days worth of information it should learn. 
+What I can see is that timestep of 1 reduces a lot of noise compared to the past 30 days of data to train on. Since we have a lot of features, timestep of 1 helps us capture a lot of the data points. 
+
+What type of a model we used ?
+-> We used a multi level perceptron based LSTM. This model has 2 LSTM layer, 2 dropout layer and 2 dense layer. 
+
+What is early stopping and why did I use it ?
+-> Used it to prevent overfitting. If we dont see the loss improving after several interation of number 20 since patience level is 20 then we stop the model from training. This will protect against overfitting and would save on resources. 
+
+
